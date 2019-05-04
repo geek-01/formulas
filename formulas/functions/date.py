@@ -1,12 +1,6 @@
-import math
-import functools
-import numpy as np
-import datetime
-from . import wrap_ufunc, Error, replace_empty, XlError, value_return
 import dateutil.parser as dparser
 from . import (
-    get_error, raise_errors, is_number, flatten, wrap_ufunc, wrap_func,
-    replace_empty, Error
+    wrap_ufunc, wrap_func
 )
 
 # noinspection PyDictCreation
@@ -17,12 +11,6 @@ def _str(text):
     if isinstance(text, bool):
         return str(text).upper()
     return str(text)
-
-
-_kw1 = dict(
-    input_parser=lambda text: [_str(text)], return_func=value_return,
-    args_parser=lambda *a: map(functools.partial(replace_empty, empty=''), a),
-)
 
 
 def find_day(date_str):
