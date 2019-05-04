@@ -127,7 +127,7 @@ def parse_ranges(*args, **kw):
 
 
 SUBMODULES = [
-    '.info', '.logic', '.math', '.stat', '.financial', '.text', '.look', '.eng'
+    '.info', '.logic', '.math', '.stat', '.financial', '.text', '.look', '.eng', '.date'
 ]
 # noinspection PyDictCreation
 FUNCTIONS = {}
