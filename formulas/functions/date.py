@@ -10,24 +10,28 @@ from . import (
 
 # noinspection PyDictCreation
 FUNCTIONS = {}
+_kw0 = dict(
+    input_parser=lambda *a: a,
+    args_parser=lambda *a: map(functools.partial(replace_empty, empty=''), a)
+)
 
 
 def find_day(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).day
 
 
-FUNCTIONS['Day'] = wrap_ufunc(find_day)
+FUNCTIONS['DAY'] = wrap_ufunc(find_day, **_kw0)
 
 
 def find_month(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).month
 
 
-FUNCTIONS['Month'] = wrap_func(find_month)
+FUNCTIONS['DAY'] = wrap_func(find_month, **_kw0)
 
 
 def find_year(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).year
 
 
-FUNCTIONS['Year'] = wrap_func(find_year)
+FUNCTIONS['DAY'] = wrap_func(find_year, **_kw0)
