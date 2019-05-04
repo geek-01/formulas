@@ -5,7 +5,11 @@
 # Licensed under the EUPL (the 'Licence');
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
-
+import dateutil.parser as dparser
+from . import (
+    get_error, raise_errors, is_number, flatten, wrap_ufunc, wrap_func,
+    replace_empty, Error
+)
 """
 Python equivalents of text Excel functions.
 """
@@ -43,7 +47,6 @@ def xleft(from_str, num_chars):
 
 FUNCTIONS['LEFT'] = wrap_ufunc(xleft, **_kw0)
 
-
 _kw1 = dict(
     input_parser=lambda text: [_str(text)], return_func=value_return,
     args_parser=lambda *a: map(functools.partial(replace_empty, empty=''), a),
@@ -73,6 +76,28 @@ def xreplace(old_text, start_num, num_chars, new_text):
 
 
 FUNCTIONS['REPLACE'] = wrap_ufunc(xreplace, **_kw0)
+
+
+# Custom Functions
+def find_day(date_str):
+    return dparser.parse(date_str, fuzzy=True, dayfirst=True).day
+
+
+FUNCTIONS['Day'] = wrap_ufunc(find_day)
+
+
+def find_month(date_str):
+    return dparser.parse(date_str, fuzzy=True, dayfirst=True).month
+
+
+FUNCTIONS['Month'] = wrap_func(find_month)
+
+
+def find_year(date_str):
+    return dparser.parse(date_str, fuzzy=True, dayfirst=True).year
+
+
+FUNCTIONS['Year'] = wrap_func(find_year)
 
 
 def xright(from_str, num_chars):
