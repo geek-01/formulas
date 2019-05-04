@@ -24,11 +24,11 @@ def find_month(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).month
 
 
-FUNCTIONS['DAY'] = wrap_func(find_month)
+FUNCTIONS['MONTH'] = wrap_func(find_month)
 
 
 def find_year(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).year
 
 
-FUNCTIONS['DAY'] = wrap_func(find_year)
+FUNCTIONS['YEAR'] = wrap_func(find_year)
