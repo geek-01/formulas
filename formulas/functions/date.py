@@ -29,18 +29,18 @@ def find_day(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).day
 
 
-FUNCTIONS['DAY'] = wrap_ufunc(find_day, **_kw1)
+FUNCTIONS['DAY'] = wrap_ufunc(find_day)
 
 
 def find_month(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).month
 
 
-FUNCTIONS['DAY'] = wrap_func(find_month, **_kw1)
+FUNCTIONS['DAY'] = wrap_func(find_month)
 
 
 def find_year(date_str):
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).year
 
 
-FUNCTIONS['DAY'] = wrap_func(find_year, **_kw1)
+FUNCTIONS['DAY'] = wrap_func(find_year)

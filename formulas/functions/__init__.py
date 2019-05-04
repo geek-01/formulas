@@ -26,6 +26,7 @@ Sub-Modules:
     ~operators
     ~stat
     ~text
+    ~date
 """
 import importlib
 import functools
