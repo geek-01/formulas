@@ -27,6 +27,7 @@ Sub-Modules:
     ~stat
     ~text
     ~date
+    ~aggregate
 """
 import importlib
 import functools
@@ -60,16 +61,16 @@ class Array(np.ndarray):
 
     def collapse(self, shape):
         if self._collapse_value is not None and tuple(shape) == (
-        1, 1) != self.shape:
+                1, 1) != self.shape:
             return self._collapse_value
         return np.resize(self, shape)
 
     def __reduce__(self):
-        reduce = super(Array, self).__reduce__() # Get the parent's __reduce__.
+        reduce = super(Array, self).__reduce__()  # Get the parent's __reduce__.
         state = {
-            '_collapse_value': self._collapse_value,
-            '_default': self._default
-        },  # Additional state params to pass to __setstate__.
+                    '_collapse_value': self._collapse_value,
+                    '_default': self._default
+                },  # Additional state params to pass to __setstate__.
         return reduce[0], reduce[1], reduce[2] + state
 
     def __setstate__(self, state):
@@ -128,7 +129,7 @@ def parse_ranges(*args, **kw):
 
 
 SUBMODULES = [
-    '.info', '.logic', '.math', '.stat', '.financial', '.text', '.look', '.eng', '.date'
+    '.info', '.logic', '.math', '.stat', '.financial', '.text', '.look', '.eng', '.date', '.aggregate'
 ]
 # noinspection PyDictCreation
 FUNCTIONS = {}

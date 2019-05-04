@@ -1,4 +1,5 @@
 import dateutil.parser as dparser
+import datetime
 from . import (
     wrap_func
 )
@@ -26,3 +27,5 @@ def find_year(date_str):
 
 
 FUNCTIONS['YEAR'] = wrap_func(find_year)
+FUNCTIONS['NOW'] = wrap_func(datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p"))
+FUNCTIONS['TODAY'] = wrap_func(datetime.datetime.now().strftime("%Y-%m-%d"))
