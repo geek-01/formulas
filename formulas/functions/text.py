@@ -9,7 +9,7 @@
 Python equivalents of text Excel functions.
 """
 import functools
-from . import wrap_ufunc, Error, replace_empty, XlError, value_return
+from . import wrap_ufunc, Error, replace_empty, XlError, value_return, flatten
 
 FUNCTIONS = {}
 
@@ -71,3 +71,50 @@ def xreplace(old_text, start_num, num_chars, new_text):
 
 
 FUNCTIONS['REPLACE'] = wrap_ufunc(xreplace, **_kw0)
+
+
+def xconcatenate(*args):
+    text = list(flatten(args))
+    return ''.join(text) or None
+
+
+FUNCTIONS['CONCATENATE'] = wrap_ufunc(xconcatenate, **_kw0)
+
+
+def xascii(*args):
+    text = list(flatten(args))
+    return [ord(c) for c in text] or None
+
+
+FUNCTIONS['ASCII'] = wrap_ufunc(xascii, **_kw0)
+
+
+def xchar(*args):
+    ascii = list(flatten(args))
+    return [chr(c) for c in ascii] or None
+
+
+FUNCTIONS['CHAR'] = wrap_ufunc(xchar, **_kw0)
+
+
+def xendswith(str, substring):
+    try:
+        return str.endswith(substring)
+    except TypeError as err:
+        raise Exception("Error occured while parsing function! {}".format(str(err)))
+
+
+FUNCTIONS['ENDSWITH'] = wrap_ufunc(xendswith, **_kw0)
+
+
+def xstartswith(str, substring):
+    try:
+        return str.startswith(substring)
+    except TypeError as err:
+        raise Exception("Error occured while parsing function! {}".format(str(err)))
+
+
+FUNCTIONS['STARTSWITH'] = wrap_ufunc(xstartswith, **_kw0)
+FUNCTIONS['TRIM'] = wrap_ufunc(str.strip, **_kw1)
+FUNCTIONS['RTRIM'] = wrap_ufunc(str.rstrip, **_kw1)
+FUNCTIONS['LTRIM'] = wrap_ufunc(str.lstrip, **_kw1)

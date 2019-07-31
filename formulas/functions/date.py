@@ -64,3 +64,50 @@ def xgetdate(date_str):
 
 
 FUNCTIONS['DATE'] = wrap_func(xgetdate)
+
+
+def xdateadd(date_part, interval, date):
+    try:
+        date = dparser.parse(date)
+        if date_part.lower() == 'day':
+            return datetime.date(date.year, date.month, date.day + int(interval)).strftime("%Y-%m-%d")
+        elif date_part.lower() == 'month':
+            return datetime.date(date.year, date.month + int(interval), date.day).strftime("%Y-%m-%d")
+        elif date_part.lower() == 'year':
+            return datetime.date(date.year + int(interval), date.month, date.day).strftime("%Y-%m-%d")
+        return "Require value for argument interval"
+    except ValueError:
+        raise Exception("Invalid date string!")
+
+
+FUNCTIONS['DATEADD'] = wrap_func(xdateadd)
+
+
+def xmakedate(year, month, day):
+    try:
+        return datetime.date(year, month, day).strftime("%B %d, %Y")
+    except ValueError:
+        raise Exception("Invalid date string!")
+
+
+FUNCTIONS['MAKEDATE'] = wrap_func(xmakedate)
+
+
+def xmakedatetime(date, time):
+    try:
+        return dparser.parse(date + ' ' + time).strftime("%Y-%m-%d %I:%M:%S %p")
+    except ValueError as err:
+        raise Exception("Invalid date string! {}".format(str(err)))
+
+
+FUNCTIONS['MAKEDATETIME'] = wrap_func(xmakedatetime)
+
+
+def xmaketime(hour, minute, second):
+    try:
+        return datetime.time(hour, minute, second).strftime("%I:%M:%S %p")
+    except ValueError as err:
+        raise Exception("Invalid date string! {}".format(str(err)))
+
+
+FUNCTIONS['MAKETIME'] = wrap_func(xmaketime)

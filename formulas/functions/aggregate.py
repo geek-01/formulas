@@ -27,3 +27,16 @@ def xvar(*args):
 
 
 FUNCTIONS['VAR'] = wrap_func(xvar)
+
+
+def mean(x):
+    return sum(x) / len(x)
+
+
+def xcovar(exp1, exp2):
+    covar = [(exp1[i] - mean(exp1)) * (exp2[i] - mean(exp2))
+             for i in range(len(exp1))]
+    return sum(covar) / (len(covar) - 1) or [0]
+
+
+FUNCTIONS['COVAR'] = wrap_func(xcovar)
