@@ -1,4 +1,5 @@
 import dateutil.parser as dparser
+from datetime import datetime
 from dateutil.parser import parse
 import datetime
 from . import (
@@ -8,8 +9,16 @@ from . import (
 # noinspection PyDictCreation
 FUNCTIONS = {}
 
+def parse_date_fromat(date_str):
+    for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y'):
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            pass
+    raise ValueError('no valid date format found')
 
 def find_day(date_str):
+    parse_date_fromat(date_str)
     return dparser.parse(date_str, fuzzy=True, dayfirst=True).day
 
 
@@ -31,14 +40,14 @@ FUNCTIONS['YEAR'] = wrap_func(find_year)
 
 
 def xnow():
-    return datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
+    return datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
 
 
 FUNCTIONS['NOW'] = wrap_func(xnow)
 
 
 def xtoday():
-    return datetime.datetime.now().strftime("%Y-%m-%d")
+    return datetime.now().strftime("%Y-%m-%d")
 
 
 FUNCTIONS['TODAY'] = wrap_func(xtoday)
